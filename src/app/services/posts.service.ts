@@ -46,5 +46,12 @@ export class PostsService{
     )
   }
 
+
+  getPostById(id:string):Observable<Post>{
+    return this.http.get<Post>(
+      'https://vue-completecourse.firebase.com/posts.json?id=${id}.json',
+    )
+  }
+
   
 }

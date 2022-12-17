@@ -22,21 +22,34 @@ export class EditPostComponent implements OnInit {
   constructor(private route:ActivatedRoute, private store:Store<AppState>, private router:Router) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params)=>{
-      const id=params.get('id');
-      this.postSubscription=this.store.select(getPostById, {id}).subscribe(data=>{
-        this.post=data;
-        this.createForm();
-        console.log(this.post);
-      })
-      console.log(params.get('id'));
+    this.createForm()
+    this.postSubscription=this.store.
+    select(getPostById).subscribe((post)=>{
+      if(post){
+      this.post=post;
+      this.postForm.patchValue({
+        title:post?.title,
+        description:post?.description,
+      });
+    }
     });
+    // this.route.paramMap.subscribe((params)=>{
+    //   const id=params.get('id');
+    //   this.postSubscription=this.store.select(getPostById, {id}).subscribe(data=>{
+    //     this.post=data;
+    //     this.createForm();
+    //     console.log(this.post);
+    //   })
+    //   console.log(params.get('id'));
+    // });
   }
 
   createForm(){
    this.postForm = new FormGroup({
-     title: new FormControl(this.post!.title,[Validators.required, Validators.minLength(6)]),
-     description: new FormControl(this.post!.description,[Validators.required, Validators.minLength(10)]),     
+     title: new FormControl(null,
+      [Validators.required, Validators.minLength(6)]),
+     description: new FormControl(null,
+      [Validators.required, Validators.minLength(10)]),     
    });
   }
 
@@ -54,7 +67,7 @@ export class EditPostComponent implements OnInit {
       description
     };
 
-    //dispatch the action
+    // dispatch the action
     this.store.dispatch(updatePost({post}));
     this.router.navigate(['posts']);
   }

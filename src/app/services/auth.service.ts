@@ -6,6 +6,7 @@ import { AuthResponseData } from "../models/AuthResponseData.model";
 import { User } from "../models/User.model";
 import { AppState } from "../store/app.state";
 import { Store } from "@ngrx/store";
+import { autoLogout } from "../auth/state/auth.actions";
 
 @Injectable({
     providedIn:'root',
@@ -18,6 +19,7 @@ export class AuthService{
   }
 
   login(email:string, password:string):Observable<AuthResponseData>{
+    debugger;
     return this.http.post<AuthResponseData>(
         '',
         {    email, password,

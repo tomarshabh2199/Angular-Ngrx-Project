@@ -25,11 +25,12 @@ export class AuthEffects{
             exhaustMap(action=>{
              return this.authService.login(action.email,action.password).pipe(
                 map((data)=>{
+                  debugger;
                     this.store.dispatch(setLoadingSpinner({status:false}));
                     this.store.dispatch(setErrorMessage({message:''}))
                     const user=this.authService.formatUser(data);
                     this.authService.setUserInLocalStorage(user);
-                 return loginSuccess({user});
+                 return loginSuccess({user, redirect:true});
              }),
              catchError(errorRes=>{
               console.log(errorRes.error.errorMessage);
@@ -102,16 +103,18 @@ export class AuthEffects{
       console.log(user);
     })
   );
- },{dispatch:false});
+ });
 
- logout$ = createEffect(()=>{
-  return this.action$.pipe(ofType(autoLogout),
+ logout$ = createEffect(
+  ()=>{
+  return this.action$.pipe(
+    ofType(autoLogout),
   map((action)=>{
     this.authService.logout();
     this.router.navigate(['auth']);
   })
   );
- },{dispatch:false});
-   );
-});
+ },
+ {dispatch:false}
+ );
 }

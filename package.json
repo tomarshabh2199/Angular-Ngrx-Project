@@ -19,6 +19,8 @@
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
     "@ngrx/effects": "^14.3.2",
+    "@ngrx/entity": "^15.0.0",
+    "@ngrx/router-store": "^15.0.0",
     "@ngrx/store": "^14.3.1",
     "@ngrx/store-devtools": "^14.3.1",
     "rxjs": "~7.5.0",

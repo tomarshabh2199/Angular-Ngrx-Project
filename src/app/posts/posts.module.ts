@@ -9,6 +9,7 @@ import { EditPostComponent } from "./edit-post/edit-post.component";
 import { PostsListComponent } from "./posts-list/posts-list.component";
 import { PostsEffects } from "./state/posts.effect";
 import { postsReducers } from "./state/posts.reducers";
+import { SinglepostComponent } from './singlepost/singlepost.component';
 
 const routes:Routes=[{
     path:'posts', 
@@ -29,7 +30,8 @@ const routes:Routes=[{
     declarations:[
         PostsListComponent,
         AddPostComponent,
-        EditPostComponent
+        EditPostComponent,
+        SinglepostComponent
     ],
     imports:[
         CommonModule,
